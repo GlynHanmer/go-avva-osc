@@ -31,7 +31,7 @@ func testSceneCutResults(actual, expected cut, t *testing.T) {
 
 func Test_SceneCut_Auto_OscMessage(t *testing.T) {
 	sc := NewSceneCut(AUTO)
-	actual := sc.osc()
+	actual := sc.Osc()
 	expected := osc.NewMessage("/scenechange")
 	expected.Append("cut")
 	expected.Append("auto")
@@ -40,7 +40,7 @@ func Test_SceneCut_Auto_OscMessage(t *testing.T) {
 
 func Test_SceneCut_Manual_OscMessage(t *testing.T) {
 	sc := NewSceneCut(MANUAL)
-	actual := sc.osc()
+	actual := sc.Osc()
 	expected := osc.NewMessage("/scenechange")
 	expected.Append("cut")
 	expected.Append("manual")
