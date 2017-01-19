@@ -6,14 +6,15 @@ import (
 
 func (c cut) Osc() *osc.Message {
 	msg := osc.NewMessage("/scenechange")
+	//TODO make these take c.actionName of something like that.
 	msg.Append("cut")
-	msg.Append(c.Type)
+	msg.Append(string(c.Type))
 	return msg
 }
 
 func (c cue) Osc() *osc.Message {
 	msg := osc.NewMessage("/scenechange")
 	msg.Append("cue")
-	msg.Append(c.SceneNumber)
+	msg.Append(int32(c.SceneNumber))
 	return msg
 }

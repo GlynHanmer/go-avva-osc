@@ -1,7 +1,7 @@
 package scene
 
 import (
-	"fmt"
+	// "fmt"
 	"github.com/hypebeast/go-osc/osc"
 	"testing"
 )
@@ -11,16 +11,16 @@ func Test_SceneCut_Auto(t *testing.T) {
 	actual := sc.Osc()
 	expected := osc.NewMessage("/scenechange")
 	expected.Append("cut")
-	expected.Append(AUTO)
+	expected.Append(string(AUTO))
 	testOSCMessageResults(actual, expected, t)
 }
 
 func Test_SceneCut_Manual(t *testing.T) {
-	sc := NewSceneCut(AUTO)
+	sc := NewSceneCut(MANUAL)
 	actual := sc.Osc()
 	expected := osc.NewMessage("/scenechange")
 	expected.Append("cut")
-	expected.Append(MANUAL)
+	expected.Append(string(MANUAL))
 	testOSCMessageResults(actual, expected, t)
 }
 
@@ -29,7 +29,7 @@ func Test_SceneCue_ValidSceneNumber(t *testing.T) {
 	actual := sc.Osc()
 	expected := osc.NewMessage("/scenechange")
 	expected.Append("cue")
-	expected.Append(3)
+	expected.Append(int32(3))
 	testOSCMessageResults(actual, expected, t)
 }
 
