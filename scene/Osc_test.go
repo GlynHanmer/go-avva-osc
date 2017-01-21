@@ -1,7 +1,6 @@
 package scene
 
 import (
-	// "fmt"
 	"github.com/hypebeast/go-osc/osc"
 	"testing"
 )
@@ -34,10 +33,6 @@ func Test_SceneCue_ValidSceneNumber(t *testing.T) {
 }
 
 func testOSCMessageResults(actual, expected *osc.Message, t *testing.T) {
-	// fmt.Printf("actual: %s %T\n", actual, actual)
-	// fmt.Printf("actual: %s %T\n", actual.Address, actual.Address)
-	// fmt.Printf("expected: %s %T\n", expected, expected)
-	// fmt.Printf("expected: %s %T\n", expected.Address, expected.Address)
 	if !actual.Equals(expected) {
 		t.Fatalf("Generated osc message not as expected\n\tactual: %+v\n\texpected: %+v", actual, expected)
 	}

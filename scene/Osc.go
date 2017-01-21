@@ -6,7 +6,7 @@ import (
 
 func (c cut) Osc() *osc.Message {
 	msg := osc.NewMessage("/scenechange")
-	//TODO make these take c.actionName of something like that.
+	//TODO make these take c.actionName or something like that.
 	msg.Append("cut")
 	msg.Append(string(c.Type))
 	return msg
