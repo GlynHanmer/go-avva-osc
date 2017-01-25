@@ -21,3 +21,16 @@ func testSceneCueResults(actual, expected cue, t *testing.T) {
 		t.Fatal(buffer.String())
 	}
 }
+
+func Test_SceneCueActionName(t *testing.T) {
+	cue := NewSceneCue(3)
+	actual := cue.actionName()
+	expected := CUE_ACTION_NAME
+	if actual != expected {
+		var buffer bytes.Buffer
+		buffer.WriteString("Actual scene cue action name different to expected.\n")
+		buffer.WriteString(fmt.Sprintf("Actual: %+v\n", actual))
+		buffer.WriteString(fmt.Sprintf("Expected: %+v\n", expected))
+		t.Fatal(buffer.String())
+	}
+}

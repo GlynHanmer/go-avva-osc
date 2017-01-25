@@ -46,3 +46,16 @@ func Test_SceneCut_Manual_OscMessage(t *testing.T) {
 	expected.Append("manual")
 	testOSCMessageResults(actual, expected, t)
 }
+
+func Test_SceneCutActionName(t *testing.T) {
+	cut := NewSceneCut(AUTO)
+	actual := cut.actionName()
+	expected := CUT_ACTION_NAME
+	if actual != expected {
+		var buffer bytes.Buffer
+		buffer.WriteString("Actual scene cut action name different to expected.\n")
+		buffer.WriteString(fmt.Sprintf("Actual: %+v\n", actual))
+		buffer.WriteString(fmt.Sprintf("Expected: %+v\n", expected))
+		t.Fatal(buffer.String())
+	}
+}
