@@ -12,7 +12,13 @@ func (c cut) actionName() string {
 	return CUT_ACTION_NAME
 }
 
+func (c cut) String() string {
+	return "Stringer interface not yet implemented."
+}
+
 type CutType string
+
+var CutTypes = [...]CutType{AUTO, MANUAL}
 
 const (
 	AUTO            CutType = "auto"

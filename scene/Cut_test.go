@@ -59,3 +59,15 @@ func Test_SceneCutActionName(t *testing.T) {
 		t.Fatal(buffer.String())
 	}
 }
+
+func Test_CutTypes(t *testing.T) {
+	actual := CutTypes
+	expected := [...]CutType{AUTO, MANUAL}
+	if actual != expected {
+		var buffer bytes.Buffer
+		buffer.WriteString("CutTypes array not as expected.\n")
+		buffer.WriteString(fmt.Sprintf("Actual: %+v\n", actual))
+		buffer.WriteString(fmt.Sprintf("Expected: %+v\n", expected))
+		t.Fatal(buffer.String())
+	}
+}
