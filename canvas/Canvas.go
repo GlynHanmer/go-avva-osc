@@ -12,11 +12,14 @@ func NewCanvas(active bool) Canvas {
 }
 
 func (c Canvas) Osc() *osc.Message {
-	return osc.NewMessage("/canvas", bool(c))
-	// Does it need to be done like this?
-	// msg := osc.NewMessage("/canvas")
-	// msg.Append(bool(c))
-	// return msg
+	return osc.NewMessage("/canvas", c.int32())
+}
+
+func (c Canvas) int32() int32 {
+	if bool(c) {
+		return 1
+	}
+	return 0
 }
 
 func (c Canvas) String() string {
