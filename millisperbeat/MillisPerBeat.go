@@ -1,4 +1,4 @@
-// millisperbeat provides data structures and complies with the AvvaOscMessageBuilder interface
+// Package millisperbeat provides data structures and adheres to the AvvaOscMessageBuilder interface
 package millisperbeat
 
 import (
