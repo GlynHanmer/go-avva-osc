@@ -30,8 +30,8 @@ type OscTestSet struct {
 }
 
 var CanvasOSCTestTests = []OscTestSet{
-	OscTestSet{true, osc.NewMessage("/canvas", true)},
-	OscTestSet{false, osc.NewMessage("/canvas", false)},
+	OscTestSet{true, osc.NewMessage("/canvas", int32(1))},
+	OscTestSet{false, osc.NewMessage("/canvas", int32(0))},
 }
 
 func Test_createCanvasOscMessages(t *testing.T) {
