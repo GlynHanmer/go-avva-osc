@@ -17,7 +17,7 @@ func Test_createMillisPerBeat(t *testing.T) {
 	for key, ts := range MillisPerBeatTestSets {
 		actual := NewMillisPerBeat()
 		if actual != ts.expected {
-			t.Fatalf("MillisPerBeatTestSets[%d}: MillisPerBeat returned not as expected.\n\tActual  : %v\n\tExpected: %v", key, actual, ts.expected)
+			t.Fatalf("MillisPerBeatTestSets[%d]: MillisPerBeat returned not as expected.\n\tActual  : %v\n\tExpected: %v", key, actual, ts.expected)
 		}
 	}
 }
@@ -27,7 +27,7 @@ type OscTestSet struct {
 }
 
 var MillisPerBeatOSCTestTests = []OscTestSet{
-	OscTestSet{osc.NewMessage("/millisperbeat")},
+	OscTestSet{osc.NewMessage("/audio", "millisperbeat", float32(250))},
 }
 
 func Test_createCanvasOscMessages(t *testing.T) {
@@ -43,7 +43,7 @@ func Test_StringerInterface(t *testing.T) {
 	var testSets = []struct {
 		expected string
 	}{
-		{"millisperbeat"},
+		{"/audio millisperbeat"},
 	}
 	for _, ts := range testSets {
 		c := NewMillisPerBeat()

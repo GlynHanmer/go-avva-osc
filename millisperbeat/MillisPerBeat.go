@@ -12,9 +12,10 @@ func NewMillisPerBeat() MillisPerBeat {
 }
 
 func (c MillisPerBeat) Osc() *osc.Message {
-	return osc.NewMessage("/millisperbeat")
+	var millisPerBeat float32 = 250
+	return osc.NewMessage("/audio", "millisperbeat", millisPerBeat)
 }
 
 func (c MillisPerBeat) String() string {
-	return "millisperbeat"
+	return "/audio millisperbeat"
 }
