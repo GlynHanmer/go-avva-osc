@@ -47,6 +47,15 @@ func Test_SceneCut_Manual_OscMessage(t *testing.T) {
 	testOSCMessageResults(actual, expected, t)
 }
 
+func Test_SceneCut_EndOfScene_OscMessage(t *testing.T) {
+	sc := NewSceneCut(END_OF_SCENE)
+	actual := sc.Osc()
+	expected := osc.NewMessage("/scenechange")
+	expected.Append("cut")
+	expected.Append("end_of_scene")
+	testOSCMessageResults(actual, expected, t)
+}
+
 func Test_SceneCutActionName(t *testing.T) {
 	cut := NewSceneCut(AUTO)
 	actual := cut.actionName()
@@ -62,7 +71,7 @@ func Test_SceneCutActionName(t *testing.T) {
 
 func Test_CutTypes(t *testing.T) {
 	actual := CutTypes
-	expected := [...]CutType{AUTO, MANUAL}
+	expected := [...]CutType{AUTO, MANUAL, END_OF_SCENE}
 	if actual != expected {
 		var buffer bytes.Buffer
 		buffer.WriteString("CutTypes array not as expected.\n")

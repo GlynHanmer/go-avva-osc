@@ -24,10 +24,11 @@ func (c cut) String() string {
 type CutType string
 
 // Possible valid cut types
-var CutTypes = [...]CutType{AUTO, MANUAL}
+var CutTypes = [...]CutType{AUTO, MANUAL, END_OF_SCENE}
 
 const (
 	AUTO            CutType = "auto"
 	MANUAL          CutType = "manual"
+	END_OF_SCENE    CutType = "end_of_scene"
 	CUT_ACTION_NAME string  = "cut"
 )
