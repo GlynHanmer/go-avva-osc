@@ -89,7 +89,7 @@ func Test_Gain(t *testing.T) {
 			t.Errorf("Unexpected error.\nExpect error: %t\nActual: %s", testSet.error, err)
 		}
 		if !gain.equals(testSet.gain) {
-			t.Errorf("Unexpected gain.\nExpected: %s\nActual  : %s", testSet.gain, gain)
+			t.Errorf("Unexpected value.\nExpected: %s\nActual  : %s", testSet.gain, gain)
 		}
 	}
 }

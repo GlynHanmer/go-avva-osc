@@ -20,12 +20,6 @@ func (g *gain) String() string {
 	}
 	return `<nil>`
 }
-//type lift *float64
-
-type opacity struct {
-	Gain *gain
-	//Lift *lift
-}
 
 func Gain(value float64) (*gain, error) {
 	err := inRange(value)
@@ -40,7 +34,39 @@ func gainPointer(value float64) *gain {
 	return &g
 }
 
-//
-//func Lift(value float64) (gain, error) {
-//	return gain(&value), inRange(value)
-//}
+type lift float64
+
+func (a *lift) equals(b *lift) bool {
+	switch {
+	case a == b:
+	case a == nil != (b == nil),
+		*a != *b:
+		return false
+	}
+	return true
+}
+
+func (l *lift) String() string {
+	if l != nil {
+		return fmt.Sprintf("%f", *l)
+	}
+	return `<nil>`
+}
+
+func Lift(value float64) (*lift, error) {
+	err := inRange(value)
+	if err != nil {
+		return nil, err
+	}
+	return liftPointer(value), err
+}
+
+func liftPointer(value float64) *lift {
+	l := lift(value)
+	return &l
+}
+
+type opacity struct {
+	Gain *gain
+	Lift *lift
+}
