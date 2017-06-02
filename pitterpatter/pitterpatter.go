@@ -1,6 +1,11 @@
 package pitterpatter
 
-import "fmt"
+import (
+	"fmt"
+	"encoding/json"
+	"log"
+	"github.com/hypebeast/go-osc/osc"
+)
 
 const (
 	minValue float64 = 0.0
@@ -27,4 +32,16 @@ func inRange(value float64) error {
 		}
 	}
 	return err
+}
+
+type PitterPatter struct {
+	Opacity *Opacity
+}
+
+func (pp PitterPatter) Osc() *osc.Message {
+	json, err := json.Marshal(pp)
+	if err != nil {
+		log.Printf("Error creating PitterPatter json for osc message: %s", err.Error())
+	}
+	return osc.NewMessage("/pitterpatter", string(json))
 }

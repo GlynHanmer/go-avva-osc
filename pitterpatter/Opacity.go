@@ -66,7 +66,11 @@ func liftPointer(value float64) *lift {
 	return &l
 }
 
-type opacity struct {
+type Opacity struct {
 	Gain *gain
 	Lift *lift
+}
+
+func (o Opacity) String() string {
+	return fmt.Sprintf("Gain: %v, Lift: %v", o.Gain, o.Lift)
 }
