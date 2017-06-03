@@ -45,3 +45,11 @@ func (pp PitterPatter) Osc() *osc.Message {
 	}
 	return osc.NewMessage("/pitterpatter", string(json))
 }
+
+func (pp PitterPatter) String() string {
+	json, err := json.Marshal(pp)
+	if err != nil {
+		log.Printf("Error creating PitterPatter json for String method: %s", err.Error())
+	}
+	return string(json)
+}
