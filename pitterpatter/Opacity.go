@@ -6,8 +6,8 @@ import (
 )
 
 type Opacity struct {
-	Gain *normalisedFloat `json:",omitempty"`
-	Lift *normalisedFloat `json:",omitempty"`
+	Gain *float64 `json:",omitempty"`
+	Lift *float64 `json:",omitempty"`
 }
 
 func (o Opacity) String() string {

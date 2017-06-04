@@ -6,8 +6,8 @@ import (
 )
 
 type Fill struct {
-	Min *normalisedFloat `json:",omitempty"`
-	Max *normalisedFloat `json:",omitempty"`
+	Min *float64 `json:",omitempty"`
+	Max *float64 `json:",omitempty"`
 }
 
 func (f Fill) String() string {
