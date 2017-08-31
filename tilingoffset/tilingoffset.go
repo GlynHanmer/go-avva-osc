@@ -19,6 +19,10 @@ func NewDecrement() TilingOffset {
 	return TilingOffset("dec")
 }
 
+func NewInvert() TilingOffset {
+	return TilingOffset("invert")
+}
+
 func (o *TilingOffset) Osc() *osc.Message {
 	return osc.NewMessage("/tilingoffset", "syncgain", string(*o))
 }

@@ -19,6 +19,10 @@ func NewDecrement() Orbit {
 	return Orbit("dec")
 }
 
+func NewInvert() Orbit {
+	return Orbit("invert")
+}
+
 func (o Orbit) Osc() *osc.Message {
 	return osc.NewMessage("/orbit", "syncgain", string(o))
 }
