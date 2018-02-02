@@ -5,17 +5,16 @@ import (
 	"github.com/hypebeast/go-osc/osc"
 )
 
-type MillisPerBeat struct{}
+type millisPerBeat float32
 
-func NewMillisPerBeat() MillisPerBeat {
-	return MillisPerBeat{}
+func NewMillisPerBeat(millis float32) millisPerBeat {
+	return millisPerBeat(millis)
 }
 
-func (c MillisPerBeat) Osc() *osc.Message {
-	var millisPerBeat float32 = 250
-	return osc.NewMessage("/audio", "millisperbeat", millisPerBeat)
+func (mpb millisPerBeat) Osc() *osc.Message {
+	return osc.NewMessage("/audio", "millisperbeat", mpb)
 }
 
-func (c MillisPerBeat) String() string {
+func (mpb millisPerBeat) String() string {
 	return "/audio millisperbeat"
 }
