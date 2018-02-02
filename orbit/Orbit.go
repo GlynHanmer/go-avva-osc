@@ -2,32 +2,45 @@ package orbit
 
 import (
 	"fmt"
+
 	"github.com/hypebeast/go-osc/osc"
 )
 
-type Orbit string
+type orbit string
 
-func NewOrbit(action string) Orbit {
-	return Orbit(action)
+const (
+	inc    = orbit("inc")
+	dec    = orbit("dec")
+	invert = orbit("invert")
+)
+
+func NewOrbit(action string) (*orbit, error) {
+	e := orbit(action)
+	switch e {
+	case inc, dec, invert:
+	default:
+		return nil, fmt.Errorf("action not supported: %s", action)
+	}
+	return &e, nil
 }
 
-func NewIncrement() Orbit {
-	return Orbit("inc")
+func NewIncrement() orbit {
+	return inc
 }
 
-func NewDecrement() Orbit {
-	return Orbit("dec")
+func NewDecrement() orbit {
+	return dec
 }
 
-func NewInvert() Orbit {
-	return Orbit("invert")
+func NewInvert() orbit {
+	return invert
 }
 
-func (o Orbit) Osc() *osc.Message {
+func (o orbit) Osc() *osc.Message {
 	return osc.NewMessage("/orbit", "syncgain", string(o))
 }
 
-// String makes Orbit adhere to the Stringer interface
-func (o Orbit) String() string {
+// String makes orbit adhere to the Stringer interface
+func (o orbit) String() string {
 	return fmt.Sprintf("%s %s", "orbit", string(o))
 }
