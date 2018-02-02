@@ -2,20 +2,32 @@ package heightmapbounce
 
 import (
 	"fmt"
+
 	"github.com/hypebeast/go-osc/osc"
+)
+
+const (
+	inc = HMB("inc")
+	dec = HMB("dec")
 )
 
 type HMB string
 
-func NewHMB(action string) HMB {
-	return HMB(action)
+func NewHMB(action string) (*HMB, error) {
+	e := HMB(action)
+	switch e {
+	case inc, dec:
+	default:
+		return nil, fmt.Errorf("action not supported: %s", action)
+	}
+	return &e, nil
 }
 
-func NewGainInc() HMB {
+func NewIncrement() HMB {
 	return HMB("inc")
 }
 
-func NewGainDec() HMB {
+func NewDecrement() HMB {
 	return HMB("dec")
 }
 
