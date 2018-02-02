@@ -1,8 +1,9 @@
 package millisperbeat
 
 import (
-	"github.com/hypebeast/go-osc/osc"
 	"testing"
+
+	"github.com/hypebeast/go-osc/osc"
 )
 
 type TestSet struct {

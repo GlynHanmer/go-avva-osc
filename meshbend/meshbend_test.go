@@ -1,20 +1,46 @@
-package meshbend_test
+package meshbend
 
 import (
 	"testing"
 
-	"github.com/glynternet/go-avva-osc/meshbend"
-	"github.com/hypebeast/go-osc/osc"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGainActions(t *testing.T) {
-	client := osc.NewClient("192.168.2.2", 9000)
-	for _, action := range []string{"inc", "dec", "invert", "inc"} {
-		_ = action
-		gain := meshbend.NewGain(action)
-		err := client.Send(gain.Osc())
-		if err != nil {
-			t.Error(err)
-		}
+	for _, test := range []struct {
+		action string
+		gain
+		err bool
+	}{
+		{
+			err: true,
+		},
+		{
+			action: "boop",
+			err:    true,
+		},
+		{
+			action: "inc",
+			gain:   gainInc,
+		},
+		{
+			action: "dec",
+			gain:   gainDec,
+		},
+		{
+			action: "invert",
+			gain:   gainInvert,
+		},
+	} {
+		t.Run(test.action, func(t *testing.T) {
+			gain, err := NewGain(test.action)
+			if test.err {
+				assert.Error(t, err)
+				assert.Nil(t, gain)
+			} else {
+				assert.NoError(t, err)
+				assert.Equal(t, test.gain, *gain)
+			}
+		})
 	}
 }
