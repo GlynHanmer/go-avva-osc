@@ -2,17 +2,18 @@ package pitterpatter_test
 
 import (
 	"testing"
-	"github.com/GlynOwenHanmer/go-avva-osc/pitterpatter"
+
+	"github.com/glynternet/go-avva-osc/pitterpatter"
 )
 
 func Test_PitterPatterOsc(t *testing.T) {
-	testSets := []struct{
+	testSets := []struct {
 		pitterpatter.PitterPatter
 	}{
 		{},
 		{pitterpatter.PitterPatter{}},
 		{pitterpatter.PitterPatter{
-			Opacity:&pitterpatter.Opacity{},
+			Opacity: &pitterpatter.Opacity{},
 		}},
 	}
 
