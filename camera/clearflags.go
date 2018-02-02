@@ -1,7 +1,6 @@
 package camera
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -9,23 +8,17 @@ import (
 type ClearFlags string
 
 var (
-	SKYBOX     ClearFlags = ClearFlags("skybox")
-	SOLID      ClearFlags = ClearFlags("solid")
-	DEPTH_ONLY ClearFlags = ClearFlags("depth")
+	skybox    = ClearFlags("skybox")
+	solid     = ClearFlags("solid")
+	depthOnly = ClearFlags("depth")
 )
 
-func NewClearFlag(clearFlag string) (ClearFlags, error) {
-	var cf ClearFlags
-	var err error
-	switch ClearFlags(clearFlag) {
-	case SKYBOX:
-		cf = SKYBOX
-	case SOLID:
-		cf = SOLID
-	case DEPTH_ONLY:
-		cf = DEPTH_ONLY
+func NewClearFlag(clearFlag string) (*ClearFlags, error) {
+	cf := ClearFlags(clearFlag)
+	switch cf {
+	case skybox, solid, depthOnly:
 	default:
-		err = errors.New(fmt.Sprintf("No clearFlag exists with the type %s", clearFlag))
+		return nil, fmt.Errorf("invalid ClearFlags '%s'", clearFlag)
 	}
-	return cf, err
+	return &cf, nil
 }

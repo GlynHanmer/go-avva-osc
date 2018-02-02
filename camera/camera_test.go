@@ -3,15 +3,17 @@ package camera
 import (
 	"testing"
 	"encoding/json"
+	"github.com/glynternet/go-money/common"
+	"github.com/magiconair/properties/assert"
 )
 
 func Test_createCamera(t *testing.T) {
-	cf := SKYBOX
+	cf := skybox
 	t.Log(cf)
 }
 
 func Test_ClearFlagJson(t *testing.T) {
-	json, err := json.Marshal(SKYBOX)
+	json, err := json.Marshal(skybox)
 	if err != nil {
 		t.Error(err)
 	}
@@ -19,30 +21,29 @@ func Test_ClearFlagJson(t *testing.T) {
 }
 
 func Test_CameraJson(t *testing.T){
-	var testSets = []struct {
-		originalCamera Camera
+	for _, test := range []struct {
+		camera Camera
 	}{
-		{originalCamera:Camera{}},
-		{originalCamera:Camera{ClearFlags:SKYBOX}},
-		{originalCamera:Camera{ClearFlags:SOLID}},
-		{originalCamera:Camera{ClearFlags:DEPTH_ONLY}},
-		{originalCamera:Camera{FieldOfView:NewFieldOfView(0)}},
-		{originalCamera:Camera{FieldOfView:NewFieldOfView(255)}},
-		{originalCamera:Camera{FieldOfView:NewFieldOfView(199)}},
-		{originalCamera:Camera{ClearFlags:DEPTH_ONLY,FieldOfView:NewFieldOfView(25)}},
-	}
-	for _, testSet := range testSets {
-		json, err := json.Marshal(testSet.originalCamera)
-		if err != nil {
-			t.Error(err)
-		}
-		t.Log(string(json))
+		{camera: Camera{}},
+		{camera: Camera{ClearFlags: skybox}},
+		{camera: Camera{ClearFlags: solid}},
+		{camera: Camera{ClearFlags: depthOnly}},
+		{camera: Camera{FieldOfView: NewFieldOfView(0)}},
+		{camera: Camera{FieldOfView: NewFieldOfView(255)}},
+		{camera: Camera{FieldOfView: NewFieldOfView(199)}},
+		{camera: Camera{ClearFlags: depthOnly, FieldOfView: NewFieldOfView(25)}},
+	} {
+		bs, err := json.Marshal(test.camera)
+		common.FatalIfError(t, err, "marshalling camera json")
+		var camera Camera
+		err = json.Unmarshal(bs, &camera)
+		assert.Equal(t, test.camera, camera)
 	}
 }
 
 //todo test that this can then be parsed back into a camera vis unmarshalling json??
 func Test_CameraOsc(t *testing.T) {
-	cam := Camera{ClearFlags: SKYBOX}
+	cam := Camera{ClearFlags: skybox}
 	msg := cam.Osc()
 	t.Log(msg)
 }
