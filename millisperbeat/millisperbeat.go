@@ -11,8 +11,8 @@ func NewMillisPerBeat(millis float32) millisPerBeat {
 	return millisPerBeat(millis)
 }
 
-func (mpb millisPerBeat) Osc() *osc.Message {
-	return osc.NewMessage("/audio", "millisperbeat", mpb)
+func (mpb millisPerBeat) Generate() *osc.Message {
+	return osc.NewMessage("/audio", "millisperbeat", float32(mpb))
 }
 
 func (mpb millisPerBeat) String() string {

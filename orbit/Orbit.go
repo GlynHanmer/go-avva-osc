@@ -36,7 +36,7 @@ func NewInvert() orbit {
 	return invert
 }
 
-func (o orbit) Osc() *osc.Message {
+func (o orbit) Generate() *osc.Message {
 	return osc.NewMessage("/orbit", "syncgain", string(o))
 }
 

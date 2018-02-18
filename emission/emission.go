@@ -31,7 +31,7 @@ func NewDecrement() Emission {
 	return dec
 }
 
-func (e *Emission) Osc() *osc.Message {
+func (e *Emission) Generate() *osc.Message {
 	return osc.NewMessage("/emission", "syncgain", string(*e))
 }
 

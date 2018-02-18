@@ -1,15 +1,15 @@
 package pitterpatter
 
 import (
-	"testing"
-	"encoding/json"
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"testing"
 )
 
 func TestGenerateJsons(t *testing.T) {
 	present := 0.5
-	floatValues := []*float64{ nil, &present }
+	floatValues := []*float64{nil, &present}
 
 	opacities := generateOpacities(floatValues)
 	fills := generateFills(floatValues)
@@ -35,7 +35,9 @@ func TestGenerateJsons(t *testing.T) {
 		var escapedBytes bytes.Buffer
 		escapedBytes.WriteByte('"')
 		for _, b := range jsonBytes {
-			if b == '"' {escapedBytes.WriteByte(92)}
+			if b == '"' {
+				escapedBytes.WriteByte(92)
+			}
 			escapedBytes.WriteByte(b)
 		}
 		escapedBytes.WriteString(`",`)

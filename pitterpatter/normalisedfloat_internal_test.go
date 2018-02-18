@@ -1,14 +1,13 @@
 package pitterpatter
 
 import (
-	"testing"
 	"bytes"
 	"fmt"
+	"testing"
 )
 
-
 func Test_inRange(t *testing.T) {
-	testSets := []struct{
+	testSets := []struct {
 		float64
 		expectError bool
 	}{
@@ -27,37 +26,37 @@ func Test_inRange(t *testing.T) {
 }
 
 func Test_normalisedFloatEquals(t *testing.T) {
-		testSets := []struct{
-			A     *normalisedFloat
-			B     *normalisedFloat
-			equal bool
-		}{
-			{
-				A:     nil,
-				B:     nil,
-				equal: true,
-			},
-			{
-				A:     normalisedFloatPointer(0.5),
-				B:     nil,
-				equal: false,
-			},
-			{
-				A:     normalisedFloatPointer(0.5),
-				B:     normalisedFloatPointer(0.5),
-				equal: true,
-			},
-			{
-				A:     normalisedFloatPointer(0.0),
-				B:     normalisedFloatPointer(1.0),
-				equal: false,
-			},
-			{
-				A:     nil,
-				B:     normalisedFloatPointer(0.5),
-				equal: false,
-			},
-		}
+	testSets := []struct {
+		A     *normalisedFloat
+		B     *normalisedFloat
+		equal bool
+	}{
+		{
+			A:     nil,
+			B:     nil,
+			equal: true,
+		},
+		{
+			A:     normalisedFloatPointer(0.5),
+			B:     nil,
+			equal: false,
+		},
+		{
+			A:     normalisedFloatPointer(0.5),
+			B:     normalisedFloatPointer(0.5),
+			equal: true,
+		},
+		{
+			A:     normalisedFloatPointer(0.0),
+			B:     normalisedFloatPointer(1.0),
+			equal: false,
+		},
+		{
+			A:     nil,
+			B:     normalisedFloatPointer(0.5),
+			equal: false,
+		},
+	}
 	for _, testSet := range testSets {
 		equal := testSet.A.equals(testSet.B)
 		if testSet.equal != equal {
@@ -79,7 +78,7 @@ func Test_NormalisedFloat(t *testing.T) {
 		{
 			float64: -1,
 			gain:    nil,
-			error: true,
+			error:   true,
 		},
 		{
 			float64: 0,
@@ -88,18 +87,18 @@ func Test_NormalisedFloat(t *testing.T) {
 		},
 		{
 			float64: 0.5,
-			gain: normalisedFloatPointer(0.5),
-			error: false,
+			gain:    normalisedFloatPointer(0.5),
+			error:   false,
 		},
 		{
 			float64: 1,
-			gain: normalisedFloatPointer(1),
-			error: false,
+			gain:    normalisedFloatPointer(1),
+			error:   false,
 		},
 		{
 			float64: 1.5,
-			gain: nil,
-			error: true,
+			gain:    nil,
+			error:   true,
 		},
 	}
 

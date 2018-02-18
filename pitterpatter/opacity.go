@@ -2,7 +2,6 @@ package pitterpatter
 
 import (
 	"encoding/json"
-	"log"
 )
 
 type Opacity struct {
@@ -11,9 +10,6 @@ type Opacity struct {
 }
 
 func (o Opacity) String() string {
-	json, err := json.Marshal(o)
-	if err != nil {
-		log.Printf("Error creating Opacity json for String method: %s", err.Error())
-	}
+	json, _ := json.Marshal(o)
 	return string(json)
 }

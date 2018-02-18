@@ -18,6 +18,6 @@ func Test_PitterPatterOsc(t *testing.T) {
 	}
 
 	for _, testSet := range testSets {
-		t.Log(testSet.Osc())
+		t.Log(testSet.Generate())
 	}
 }

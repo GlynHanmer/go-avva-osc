@@ -34,7 +34,6 @@ func NormalisedFloat(value float64) (*normalisedFloat, error) {
 	return normalisedFloatPointer(value), err
 }
 
-
 func normalisedFloatPointer(value float64) *normalisedFloat {
 	l := normalisedFloat(value)
 	return &l
@@ -42,8 +41,8 @@ func normalisedFloatPointer(value float64) *normalisedFloat {
 
 type OutOfRangeError struct {
 	value float64
-	min float64
-	max float64
+	min   float64
+	max   float64
 }
 
 func (e OutOfRangeError) Error() string {
@@ -54,9 +53,9 @@ func inRange(value float64) error {
 	var err error
 	if value < minValue || value > maxValue {
 		err = OutOfRangeError{
-			value:value,
-			min:minValue,
-			max:maxValue,
+			value: value,
+			min:   minValue,
+			max:   maxValue,
 		}
 	}
 	return err

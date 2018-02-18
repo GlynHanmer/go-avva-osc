@@ -2,23 +2,24 @@
 package camera
 
 import (
-	"fmt"
-	"github.com/hypebeast/go-osc/osc"
 	"encoding/json"
+	"fmt"
 	"log"
+
+	"github.com/hypebeast/go-osc/osc"
 )
 
-type Camera struct{
-	ClearFlags `json:",omitempty"`
+type Camera struct {
+	ClearFlags  `json:",omitempty"`
 	FieldOfView FieldOfView `json:",omitempty"`
 }
 
-// Osc generates an OSC message which can be sent to the avva.studio visuals system.
-// Osc method makes Camera type adhere to AvvaOscMessageBuilder interface
-func (c Camera) Osc() *osc.Message {
+// Generate generates an OSC message which can be sent to the avva.studio visuals system.
+// Generate method makes Camera type adhere to AvvaOscMessageBuilder interface
+func (c Camera) Generate() *osc.Message {
 	json, err := json.Marshal(c)
 	if err != nil {
-		log.Printf("Error creating camera json: %s",err.Error())
+		log.Printf("Error creating camera json: %s", err.Error())
 	}
 	return osc.NewMessage("/camera", string(json))
 }
@@ -27,4 +28,3 @@ func (c Camera) Osc() *osc.Message {
 func (c Camera) String() string {
 	return fmt.Sprintf("%s %s", "camera", c.ClearFlags)
 }
-

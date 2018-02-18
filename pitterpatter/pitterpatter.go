@@ -3,16 +3,17 @@ package pitterpatter
 import (
 	"encoding/json"
 	"log"
+
 	"github.com/hypebeast/go-osc/osc"
 )
 
 type PitterPatter struct {
-	Opacity *Opacity `json:",omitempty"`
-	Fill *Fill `json:",omitempty"`
+	Opacity   *Opacity   `json:",omitempty"`
+	Fill      *Fill      `json:",omitempty"`
 	Frequency *Frequency `json:",omitempty"`
 }
 
-func (pp PitterPatter) Osc() *osc.Message {
+func (pp PitterPatter) Generate() *osc.Message {
 	json, err := json.Marshal(pp)
 	if err != nil {
 		log.Printf("Error creating PitterPatter json for osc message: %s", err.Error())

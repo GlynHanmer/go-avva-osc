@@ -27,7 +27,7 @@ func Test_createCanvasOscMessages(t *testing.T) {
 		{true, osc.NewMessage("/canvas", int32(1))},
 		{false, osc.NewMessage("/canvas", int32(0))},
 	} {
-		actual := NewCanvas(test.active).Osc()
+		actual := NewCanvas(test.active).Generate()
 		assert.Equal(t, test.expected, actual)
 	}
 }

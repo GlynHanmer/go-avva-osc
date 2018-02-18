@@ -31,7 +31,7 @@ func NewDecrement() HMB {
 	return HMB("dec")
 }
 
-func (h HMB) Osc() *osc.Message {
+func (h HMB) Generate() *osc.Message {
 	return osc.NewMessage("/heightmapbounce", "gain", string(h))
 }
 

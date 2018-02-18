@@ -27,7 +27,7 @@ func NewGain(action string) (*gain, error) {
 	return &e, nil
 }
 
-func (g *gain) Osc() *osc.Message {
+func (g *gain) Generate() *osc.Message {
 	return osc.NewMessage(address, "syncgain", string(*g))
 }
 
@@ -38,17 +38,21 @@ func (e gain) String() string {
 
 type threshold float64
 
-func NewThreshold(t float64) (threshold, error) {
+func NewThreshold(t float64) (*threshold, error) {
 	switch {
 	case t < 0:
-		return threshold(0), fmt.Errorf("threshold cannot be negative, received %f", t)
+		return newThreshold(0), fmt.Errorf("threshold cannot be negative, received %f", t)
 	case t > 1:
-		return threshold(1), fmt.Errorf("threshold cannot be greater than 1, received %f", t)
+		return newThreshold(1), fmt.Errorf("threshold cannot be greater than 1, received %f", t)
 	}
-	return threshold(t), nil
+	return newThreshold(t), nil
 }
 
-func (t *threshold) Osc() *osc.Message {
+func newThreshold(t float64) *threshold {
+	return (*threshold)(&t)
+}
+
+func (t *threshold) Generate() *osc.Message {
 	return osc.NewMessage(address, "threshold", float64(*t))
 }
 

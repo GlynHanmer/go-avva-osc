@@ -2,9 +2,14 @@
 package canvas
 
 import (
+	"errors"
 	"fmt"
+
 	"github.com/hypebeast/go-osc/osc"
 )
+
+var CANVAS_ON = [...]string{"on", "1", "true"}
+var CANVAS_OFF = [...]string{}
 
 // Canvas is a avva.studio visual canvas
 type Canvas bool
@@ -14,9 +19,23 @@ func NewCanvas(active bool) Canvas {
 	return Canvas(active)
 }
 
-// Osc generates an OSC message which can be sent to the avva.studio visuals system.
-// Osc method majes Canvas type adhere to AvvaOscMessageBuilder interface
-func (c Canvas) Osc() *osc.Message {
+func NewCanvasFromString(canvas string) (*Canvas, error) {
+	c := new(Canvas)
+	switch canvas {
+	case "on", "1", "true":
+		*c = Canvas(true)
+		return c, nil
+	case "off", "0", "false":
+		return c, nil
+	case "":
+		return nil, errors.New("no canvas string given")
+	}
+	return nil, fmt.Errorf("canvas string not supported: %s", canvas)
+}
+
+// Generate generates an OSC message which can be sent to the avva.studio visuals system.
+// Generate method majes Canvas type adhere to AvvaOscMessageBuilder interface
+func (c Canvas) Generate() *osc.Message {
 	return osc.NewMessage("/canvas", c.int32())
 }
 

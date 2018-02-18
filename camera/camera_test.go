@@ -1,8 +1,9 @@
 package camera
 
 import (
-	"testing"
 	"encoding/json"
+	"testing"
+
 	"github.com/glynternet/go-money/common"
 	"github.com/magiconair/properties/assert"
 )
@@ -20,7 +21,7 @@ func Test_ClearFlagJson(t *testing.T) {
 	t.Log(string(json))
 }
 
-func Test_CameraJson(t *testing.T){
+func Test_CameraJson(t *testing.T) {
 	for _, test := range []struct {
 		camera Camera
 	}{
@@ -44,6 +45,6 @@ func Test_CameraJson(t *testing.T){
 //todo test that this can then be parsed back into a camera vis unmarshalling json??
 func Test_CameraOsc(t *testing.T) {
 	cam := Camera{ClearFlags: skybox}
-	msg := cam.Osc()
+	msg := cam.Generate()
 	t.Log(msg)
 }

@@ -1,14 +1,17 @@
 package tilingoffset
 
 import (
-"fmt"
-"github.com/hypebeast/go-osc/osc"
+	"fmt"
+
+	"github.com/hypebeast/go-osc/osc"
 )
 
 type TilingOffset string
 
-func NewTilingOffset(action string) TilingOffset {
-	return TilingOffset(action)
+func NewTilingOffset(action string) *TilingOffset {
+	to := new(TilingOffset)
+	*to = TilingOffset(action)
+	return to
 }
 
 func NewIncrement() TilingOffset {
@@ -23,7 +26,7 @@ func NewInvert() TilingOffset {
 	return TilingOffset("invert")
 }
 
-func (o *TilingOffset) Osc() *osc.Message {
+func (o *TilingOffset) Generate() *osc.Message {
 	return osc.NewMessage("/tilingoffset", "syncgain", string(*o))
 }
 
@@ -31,4 +34,3 @@ func (o *TilingOffset) Osc() *osc.Message {
 func (o TilingOffset) String() string {
 	return fmt.Sprintf("%s %s", "tilingoffset", string(o))
 }
-
