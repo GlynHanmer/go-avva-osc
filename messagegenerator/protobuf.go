@@ -24,5 +24,7 @@ func (pb protobuf) GenerateMessage(message proto.Message) (*osc.Message, error) 
 	if err != nil {
 		return nil, errors.Wrap(err, "marshalling proto")
 	}
-	return osc.NewMessage(string(pb), bs), nil
+	// TODO: work out why when being recieved over a network, this doesn't work
+	// without the bytes being cast to a string.
+	return osc.NewMessage(string(pb), string(bs)), nil
 }
