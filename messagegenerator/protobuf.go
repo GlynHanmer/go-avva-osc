@@ -7,6 +7,7 @@ import (
 	"github.com/pkg/errors"
 )
 
+// The string here is actually the address that the message will be generated for.
 type protobuf string
 
 // NewProtobuf produces a osc message generator configured at the given address.
