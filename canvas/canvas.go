@@ -2,59 +2,32 @@
 package canvas
 
 import (
-	"errors"
-	"fmt"
-
+	"github.com/glynternet/go-avva-osc/avvaproto"
+	osc2 "github.com/glynternet/oscli/pkg/osc"
+	"github.com/golang/protobuf/proto"
 	"github.com/hypebeast/go-osc/osc"
+	"github.com/pkg/errors"
 )
 
-var CANVAS_ON = [...]string{"on", "1", "true"}
-var CANVAS_OFF = [...]string{}
-
-// Canvas is a avva.studio visual canvas
-type Canvas bool
-
-// NewCanvas generates a new canvas
-func NewCanvas(active bool) Canvas {
-	return Canvas(active)
-}
-
-func NewCanvasFromString(canvas string) (*Canvas, error) {
-	c := new(Canvas)
-	switch canvas {
-	case "on", "1", "true":
-		*c = Canvas(true)
-		return c, nil
-	case "off", "0", "false":
-		return c, nil
-	case "":
-		return nil, errors.New("no canvas string given")
-	}
-	return nil, fmt.Errorf("canvas string not supported: %s", canvas)
-}
+type Canvas avvaproto.Canvas
 
 // Generate generates an OSC message which can be sent to the avva.studio visuals system.
-// Generate method majes Canvas type adhere to AvvaOscMessageBuilder interface
-func (c Canvas) Generate() *osc.Message {
-	return osc.NewMessage("/canvas", c.int32())
+// Generate method makes Canvas type adhere to AvvaOscMessageBuilder interface
+func (c Canvas) Generate() (*osc.Message, error) {
+	return bytesMessageGenerator("/canvas").generateMessage((*avvaproto.Canvas)(&c))
 }
 
-// int32 returns the int32 type equivalent of whether the canvas is active or not.
-// int32 exists because the avva.studio visuals system OSC receiver does not support booleans in OSC messages
-func (c Canvas) int32() int32 {
-	if bool(c) {
-		return 1
-	}
-	return 0
+type bytesMessageGenerator string
+
+func newBytesMessageGenerator(address string) (*bytesMessageGenerator, error) {
+	a, err := osc2.CleanAddress(address)
+	return (*bytesMessageGenerator)(&a), errors.Wrap(err, "cleaning address")
 }
 
-// String makes Canvas adhere to the Stringer interface
-func (c Canvas) String() string {
-	var state string
-	if bool(c) {
-		state = "on"
-	} else {
-		state = "off"
+func (bmg bytesMessageGenerator) generateMessage(message proto.Message) (*osc.Message, error) {
+	bs, err := proto.Marshal(message)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshalling proto")
 	}
-	return fmt.Sprintf("%s %s", "canvas", state)
+	return osc.NewMessage(string(bmg), bs), nil
 }
